@@ -112,7 +112,6 @@ get_header();
             </div>
         </div>
         <!-- End Sidebar Modal -->
-
         <!-- Start Page Title Area -->
         <div class="page-title-area item-bg-1">
             <div class="d-table">
@@ -141,88 +140,59 @@ get_header();
                 </div>
 
                 <div class="row">
-                    <div class="col-lg-4 col-md-6">
-                        <div class="single-services">
-                            <div class="icon">
-                            <i class="fa-brands fa-usps"></i>
-                            </div>
-                            <h3>IT Consultancy</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore facilisis.</p>
-                            <a href="single-services.html" class="read-btn">Read More</a>
-                        </div>
-                    </div>
 
-                    <div class="col-lg-4 col-md-6">
-                        <div class="single-services">
-                            <div class="icon">
-                            <i class="fa-brands fa-servicestack"></i>
-                            </div>
-                            <h3>Web Development</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore facilisis.</p>
-                            <a href="single-services.html" class="read-btn">Read More</a>
-                        </div>
-                    </div>
+                <?php
+$services_query = new WP_Query(array(
+    'post_type' => 'service',
+    'posts_per_page' => 3,
+    'paged' => $paged
+));
 
-                    <div class="col-lg-4 col-md-6">
-                        <div class="single-services">
-                            <div class="icon">
-                            <i class="fa-brands fa-docker"></i>
-                            </div>
-                            <h3>Digital Marketing</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore facilisis.</p>
-                            <a href="single-services.html" class="read-btn">Read More</a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6">
-                        <div class="single-services">
-                            <div class="icon">
-                            <i class="fa-solid fa-mobile"></i>
-                            </div>
-                            <h3>App Development</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore facilisis.</p>
-                            <a href="single-services.html" class="read-btn">Read More</a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6">
-                        <div class="single-services">
-                            <div class="icon">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                            </div>
-                            <h3>E-commerce Development</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore facilisis.</p>
-                            <a href="single-services.html" class="read-btn">Read More</a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6">
-                        <div class="single-services">
-                            <div class="icon">
-                            <i class="fa-solid fa-bug-slash"></i>
-                            </div>
-                            <h3>IT Solutions</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore facilisis.</p>
-                            <a href="single-services.html" class="read-btn">Read More</a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-12 col-md-12">
-                        <div class="pagination-area">
-                            <a href="#" class="prev page-numbers">
-                            <i class="fa-solid fa-left-long"></i>
-                            </a>
-                            <a href="#" class="page-numbers">1</a>
-                            <span class="page-numbers current" aria-current="page">2</span>
-                            <a href="#" class="page-numbers">3</a>
-                            <a href="#" class="page-numbers">4</a>
-                            <a href="#" class="next page-numbers">
-                            <i class="fa-solid fa-right-long"></i>
-                            </a>
-                        </div>
-                    </div>
+if ($services_query->have_posts()) {
+    while ($services_query->have_posts()) {
+        $services_query->the_post();
+        ?>
+        <div class="col-lg-4 col-md-6">
+            <div class="single-services">
+                <div class="icon">
+                    <?php echo get_post_meta($post->ID, 'icon', true); ?>
                 </div>
+                <a href="<?php the_permalink(); ?>">
+                    <h3><?php the_title(); ?></h3>
+                    <p><?php the_content(); ?></p>
+                </a>
             </div>
+        </div>
+        <?php
+    }
+     // Pagination
+     $total_pages = $services_query->max_num_pages;
+     if ($total_pages > 1) {
+         $current_page = max(1, get_query_var('paged'));
+ 
+         echo '<div class="col-lg-12 col-md-12">';
+         echo '<div class="pagination-area">';
+         echo paginate_links(array(
+             'base' => get_pagenum_link(1) . '%_%',
+             'format' => '/page/%#%',
+             'current' => $current_page,
+             'total' => $total_pages,
+             'prev_text' => '<i class="fa-solid fa-left-long"></i>',
+             'next_text' => '<i class="fa-solid fa-right-long"></i>',
+             'mid_size' => 2, // Adjust the number of pagination links shown before and after the current page number
+         ));
+         echo '</div>';
+         echo '</div>';
+     }
+} else {
+    echo 'No services found.';
+}
+
+wp_reset_postdata();
+?>
+
+
+                    
 
             <div class="default-shape">
                 <div class="shape-1">
