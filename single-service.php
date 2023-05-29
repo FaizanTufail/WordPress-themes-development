@@ -45,23 +45,7 @@ if ($image_url) {
                     </div>
 
                     <div class="details-video">
-                    <!-- <?php
-// // Get the video ID
-// $video_id = get_post_meta( get_the_ID(), 'service_video', true );
-
-// // Check if a video is selected
-// if ( $video_id ) {
-//     // Get the video URL
-//     $video_url = wp_get_attachment_url( $video_id );
-
-//     // Output the video player
-//     echo wp_video_shortcode( array(
-//         'src' => $video_url,
-//         'width' => '640',
-//         'height' => '360'
-//     ) );
-// }
-?> -->
+                  
                         <a href=" <?php
     echo get_post_meta($post->ID, 'main_video_url', true);
   ?>" class="video-btn popup-youtube">
@@ -118,7 +102,18 @@ if ($image_url) {
                     <div class="row align-items-center">
                         <div class="col-lg-6 col-md-12">
                             <div class="services-details-image">
-                                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/services-details/2.jpg" alt="image">
+                            <?php
+// Get the post ID
+$post_id = get_the_ID();
+
+// Retrieve the image URL from the custom field
+$image_url3 = get_post_meta($post_id, 'service_image3', true);
+
+// Display the image
+if ($image_url3) {
+    echo '<img src="' . esc_url($image_url3) . '" alt="Service Image">';
+}
+?>
                             </div>
                         </div>
 
