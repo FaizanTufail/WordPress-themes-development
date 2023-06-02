@@ -320,3 +320,122 @@ function save_custom_service_meta( $post_id ) {
 }
 add_action( 'save_post', 'save_custom_service_meta' );
 
+// Add custom meta box for image fields
+function add_custom_about_meta_box() {
+    add_meta_box(
+        'about_meta_box',             // Unique ID
+        'About Page Meta Box',        // Title
+        'render_about_image_meta_box',      // Callback function
+        'page',                       // Post type (page)
+        'normal',                     // Context
+        'default'                     // Priority
+    );
+}
+add_action('add_meta_boxes', 'add_custom_about_meta_box');
+
+// Render the custom meta box
+function render_about_image_meta_box( $post ) {
+    // Retrieve the current values of the image fields
+    $image_url1 = get_post_meta( $post->ID, 'about_image', true );
+    $image_url2 = get_post_meta( $post->ID, 'about_image2', true );
+    $image_url3 = get_post_meta( $post->ID, 'about_image3', true );
+    // $video_id = get_post_meta( $post->ID, 'service_video', true );
+    $rich_text = get_post_meta( $post->ID, 'rich_text', true );
+    $rich_text2 = get_post_meta( $post->ID, 'rich_text2', true );
+    $rich_text3 = get_post_meta( $post->ID, 'rich_text3', true );
+    
+
+    // Output the image field inputs and media uploader buttons
+    ?>
+    <label for="about-image">About Image 2</label>
+    <input type="text" name="about_image" id="about-image" value="<?php echo esc_attr( $image_url1 ); ?>" />
+    <input type="button" class="button button-primary" id="about-image-button1" value="Select Image" />
+
+    <br><br>
+
+    <label for="about-image2">About Image 2</label>
+    <input type="text" name="about_image2" id="about-image2" value="<?php echo esc_attr( $image_url2 ); ?>" />
+    <input type="button" class="button button-primary" id="about-image-button2" value="Select Image" />
+
+    <br><br>
+    <label for="about-image3">About Image 3</label>
+    <input type="text" name="about_image3" id="about-image3" value="<?php echo esc_attr( $image_url3 ); ?>" />
+    <input type="button" class="button button-primary" id="about-image-button3" value="Select Image" />
+
+   
+    <br><br>
+
+    <label for="rich-text">About Tabs Description</label>
+    
+    <?php wp_editor( $rich_text, 'rich-text', array( 'textarea_name' => 'rich_text' ) ); ?>
+    <label for="rich-text2">About Rich Text</label>
+  
+    <?php wp_editor( $rich_text2, 'rich-text2', array( 'textarea_name' => 'rich_text2' ) ); ?>
+    <label for="rich-text3">About Rich Text</label>
+    <?php wp_editor( $rich_text3, 'rich-text3', array( 'textarea_name' => 'rich_text3' ) ); ?>
+    <script>
+    jQuery(document).ready(function($) {
+        // Handle the media uploader button click events
+        $('#about-image-button1, #about-image-button2, #about-image-button3').click(function(e) {
+            e.preventDefault();
+
+            // Get the target input field ID
+            var targetInput = $(this).prev();
+
+            // Create the media frame
+            var frame = wp.media({
+                title: 'Select Image',
+                button: {
+                    text: 'Use Image'
+                },
+                multiple: false
+            });
+
+            // When an image is selected, run a callback
+            frame.on('select', function() {
+                var attachment = frame.state().get('selection').first().toJSON();
+                targetInput.val(attachment.url);
+            });
+            
+            // Open the media uploader
+            frame.open();
+        });
+    });
+    </script>
+     
+    
+    <?php
+}
+
+// Save the custom meta box data
+function save_custom_about_meta( $post_id ) {
+    if ( isset( $_POST['about_image'] ) ) {
+        $image_url = sanitize_text_field( $_POST['about_image'] );
+        update_post_meta( $post_id, 'about_image', $image_url );
+    }
+
+    if ( isset( $_POST['about_image2'] ) ) {
+        $image_url2 = sanitize_text_field( $_POST['about_image2'] );
+        update_post_meta( $post_id, 'about_image2', $image_url2 );
+    }
+    if ( isset( $_POST['about_image3'] ) ) {
+        $image_url3 = sanitize_text_field( $_POST['about_image3'] );
+        update_post_meta( $post_id, 'about_image3', $image_url3 );
+    }
+
+
+    if ( isset( $_POST['rich_text'] ) ) {
+        $rich_text = wp_kses_post( $_POST['rich_text'] );
+        update_post_meta( $post_id, 'rich_text', $rich_text );
+    }
+    if ( isset( $_POST['rich_text2'] ) ) {
+        $rich_text2 = wp_kses_post( $_POST['rich_text2'] );
+        update_post_meta( $post_id, 'rich_text2', $rich_text2 );
+    }
+    if ( isset( $_POST['rich_text3'] ) ) {
+        $rich_text3 = wp_kses_post( $_POST['rich_text3'] );
+        update_post_meta( $post_id, 'rich_text3', $rich_text3 );
+    }
+}
+add_action( 'save_post', 'save_custom_about_meta' );
+?>
