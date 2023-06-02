@@ -26,31 +26,51 @@ get_header();
                 <div class="row">
                     <div class="col-lg-6 p-0">
                         <div class="about-image">
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/img/about/about-2.jpg" alt="image">
+                        <?php
+// Get the post ID
+$post_id = get_the_ID();
+
+// Retrieve the image URL from the custom field
+$image_url = get_post_meta($post_id, 'about_image', true);
+
+// Display the image
+if ($image_url) {
+    echo '<img src="' . esc_url($image_url) . '" alt="About Image">';
+}
+?>
                         </div>
                     </div>
 
                     <div class="col-lg-6">
 						<div class="about-tab">
-                            <h2>About Our Fria Agency</h2>
+                            <h2><?php
+    echo get_post_meta($post->ID, 'Main-Heading-About', true);
+  ?></h2>
                             <div class="bar"></div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo.</p>
-
+                            <p><?php
+    echo get_post_meta($post->ID, 'Description', true);
+  ?><</p>
 							<div class="tab about-list-tab">
 								<ul class="tabs">
 									<li>
 										<a href="#">
-											Our History
+                                        <?php
+    echo get_post_meta($post->ID, 'Tab-Text-1', true);
+  ?>
 										</a>
 									</li>
 									<li>
 										<a href="#">
-											Our Mission
+                                        <?php
+    echo get_post_meta($post->ID, 'Tab-Text-2', true);
+  ?>
 										</a>
 									</li>
 									<li>
 										<a href="#">
-											Friendly Support
+                                        <?php
+    echo get_post_meta($post->ID, 'Tab-Text-3', true);
+  ?>
 										</a>
 									</li>
                                 </ul>
@@ -58,104 +78,44 @@ get_header();
 								<div class="tab_content">
 									<div class="tabs_item">
 										<div class="text">
-                                            <h3>How to generate your Creative Idea With IT Business</h3>
+                                        <?php
+// Get the rich text content
+$rich_text_content = get_post_meta( get_the_ID(), 'rich_text', true );
+
+// Output the rich text content
+echo wpautop( $rich_text_content );
+?>
                                         </div>
 
-                                        <ul class="list">
-                                            <li>
-                                                <i class="flaticon-tick"></i>
-                                                The Philosopy of Business Analytics
-                                            </li>
-
-                                            <li>
-                                                <i class="flaticon-tick"></i>
-                                                Fast Track Your Business
-                                            </li>
-
-                                            <li>
-                                                <i class="flaticon-tick"></i>
-                                                Lies & Damn Lies About Your Business
-                                            </li>
-
-                                            <li>
-                                                <i class="flaticon-tick"></i>
-                                                The Ultimate Deal on Business
-                                            </li>
-                                        </ul>
-
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan facilisis.</p>
-
-										<a class="default-btn" href="#">
-                                            Discover More
-										</a>
+                                        
                                     </div>
 
                                     <div class="tabs_item">
 										<div class="text">
-                                            <h3>How to generate your Creative Idea With IT Business</h3>
+                                        <?php
+// Get the rich text content
+$rich_text_content = get_post_meta( get_the_ID(), 'rich_text', true );
+
+// Output the rich text content
+echo wpautop( $rich_text_content );
+?>
                                         </div>
 
-                                        <ul class="list">
-                                            <li>
-                                                <i class="flaticon-tick"></i>
-                                                The Philosopy of Business Analytics
-                                            </li>
-
-                                            <li>
-                                                <i class="flaticon-tick"></i>
-                                                Fast Track Your Business
-                                            </li>
-
-                                            <li>
-                                                <i class="flaticon-tick"></i>
-                                                Lies & Damn Lies About Your Business
-                                            </li>
-
-                                            <li>
-                                                <i class="flaticon-tick"></i>
-                                                The Ultimate Deal on Business
-                                            </li>
-                                        </ul>
-
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan facilisis.</p>
-
-										<a class="default-btn" href="#">
-                                            Discover More
-										</a>
+                                        
                                     </div>
 
                                     <div class="tabs_item">
 										<div class="text">
-                                            <h3>How to generate your Creative Idea With IT Business</h3>
+                                        <?php
+// Get the rich text content
+$rich_text_content = get_post_meta( get_the_ID(), 'rich_text', true );
+
+// Output the rich text content
+echo wpautop( $rich_text_content );
+?>
                                         </div>
 
-                                        <ul class="list">
-                                            <li>
-                                                <i class="flaticon-tick"></i>
-                                                The Philosopy of Business Analytics
-                                            </li>
-
-                                            <li>
-                                                <i class="flaticon-tick"></i>
-                                                Fast Track Your Business
-                                            </li>
-
-                                            <li>
-                                                <i class="flaticon-tick"></i>
-                                                Lies & Damn Lies About Your Business
-                                            </li>
-
-                                            <li>
-                                                <i class="flaticon-tick"></i>
-                                                The Ultimate Deal on Business
-                                            </li>
-                                        </ul>
-
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan facilisis.</p>
-
-										<a class="default-btn" href="#">
-                                            Discover More
-										</a>
+                                        
                                     </div>
 								</div>
 							</div>
@@ -170,8 +130,12 @@ get_header();
         <section class="team-section pb-70">
             <div class="container">
                 <div class="section-title">
-                    <h2>Our Expert Team</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidiunt labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida.</p>
+                    <h2><?php
+    echo get_post_meta($post->ID, 'Heading-2', true);
+  ?></h2>
+                    <p><?php
+    echo get_post_meta($post->ID, 'Description-2', true);
+  ?></p>
                     <div class="bar"></div>
                 </div>
 
@@ -179,7 +143,18 @@ get_header();
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="team-item">
                             <div class="image">
-                                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/team/1.jpg" alt="image">
+                                <?php
+// Get the post ID
+$post_id = get_the_ID();
+
+// Retrieve the image URL from the custom field
+$image_url = get_post_meta($post_id, 'about_image3', true);
+
+// Display the image
+if ($image_url) {
+    echo '<img src="' . esc_url($image_url) . '" alt="About Image">';
+}
+?>
     
                                 <ul class="social">
                                     <li>
@@ -206,8 +181,9 @@ get_header();
                             </div>
     
                             <div class="content">
-                                <h3>Alex Maxwel</h3>
-                                <span>Founder</span>
+                                <?php
+    echo get_post_meta($post->ID, 'Image-Text', true);
+  ?>
                             </div>
                         </div>
                     </div>
@@ -215,7 +191,18 @@ get_header();
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="team-item">
                             <div class="image">
-                                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/team/2.jpg" alt="image">
+                                <?php
+// Get the post ID
+$post_id = get_the_ID();
+
+// Retrieve the image URL from the custom field
+$image_url = get_post_meta($post_id, 'about_image3', true);
+
+// Display the image
+if ($image_url) {
+    echo '<img src="' . esc_url($image_url) . '" alt="About Image">';
+}
+?>
     
                                 <ul class="social">
                                     <li>
@@ -242,8 +229,9 @@ get_header();
                             </div>
     
                             <div class="content">
-                                <h3>Williams Halimton</h3>
-                                <span>Manager</span>
+                            <?php
+    echo get_post_meta($post->ID, 'Image-Text2', true);
+  ?>
                             </div>
                         </div>
                     </div>
@@ -251,7 +239,18 @@ get_header();
                     <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-0 offset-md-3">
                         <div class="team-item">
                             <div class="image">
-                                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/team/3.jpg" alt="image">
+                               <?php
+// Get the post ID
+$post_id = get_the_ID();
+
+// Retrieve the image URL from the custom field
+$image_url = get_post_meta($post_id, 'about_image3', true);
+
+// Display the image
+if ($image_url) {
+    echo '<img src="' . esc_url($image_url) . '" alt="About Image">';
+}
+?>
     
                                 <ul class="social">
                                     <li>
@@ -278,8 +277,9 @@ get_header();
                             </div>
     
                             <div class="content">
-                                <h3>Juhon Dew</h3>
-                                <span>CEO</span>
+                            <?php
+    echo get_post_meta($post->ID, 'Image-Text3', true);
+  ?>
                             </div>
                         </div>
                     </div>
@@ -314,9 +314,14 @@ get_header();
         <section class="faq-section pb-100">
             <div class="container">
                 <div class="section-title">
-                    <h2>Frequently <span>Asked</span> Questions</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidiunt labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida.</p>
-                    <div class="bar"></div>
+                <h2><?php
+    echo get_post_meta($post->ID, 'Heading-3', true);
+  ?></h2>
+                    <p><?php
+    echo get_post_meta($post->ID, 'Description-3', true);
+  ?></p><div class="bar">
+
+  </div>
                 </div>
 
                 <div class="row align-items-center">
@@ -324,58 +329,73 @@ get_header();
                         <div class="faq-accordion">
                             <ul class="accordion">
                                 <li class="accordion-item">
-                                    <a class="accordion-title active" href="javascript:void(0)">
+                                    <a class="accordion-title" href="javascript:void(0)">
                                         <i class='bx bx-chevron-down'></i>
-                                        What access do I have on the free plan?
+                                        <?php
+    echo get_post_meta($post->ID, 'faq-question-1', true);
+  ?>
                                     </a>
                             
                                     <div class="accordion-content show">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-                                    </div>
+                                        <p><?php
+    echo get_post_meta($post->ID, 'faq-answer-1', true);
+  ?></p> </div>
                                 </li>
 
                                 <li class="accordion-item">
                                     <a class="accordion-title" href="javascript:void(0)">
                                         <i class='bx bx-chevron-down'></i>
-                                        What access do I have on a free trial?
+                                        <?php
+    echo get_post_meta($post->ID, 'faq-question-1', true);
+  ?>
                                     </a>
                             
-                                    <div class="accordion-content">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-                                    </div>
+                                    <div class="accordion-content show">
+                                        <p><?php
+    echo get_post_meta($post->ID, 'faq-answer-1', true);
+  ?></p> </div>
                                 </li>
 
                                 <li class="accordion-item">
                                     <a class="accordion-title" href="javascript:void(0)">
                                         <i class='bx bx-chevron-down'></i>
-                                        Does the price go up as my team gets larger?
+                                        <?php
+    echo get_post_meta($post->ID, 'faq-question-1', true);
+  ?>
                                     </a>
                             
-                                    <div class="accordion-content">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-                                    </div>
+                                    <div class="accordion-content show">
+                                        <p><?php
+    echo get_post_meta($post->ID, 'faq-answer-1', true);
+  ?></p> </div>
                                 </li>
 
                                 <li class="accordion-item">
                                     <a class="accordion-title" href="javascript:void(0)">
                                         <i class='bx bx-chevron-down'></i>
-                                        How can I cancel my subscription?
+                                        <?php
+    echo get_post_meta($post->ID, 'faq-question-1', true);
+  ?>
                                     </a>
                             
-                                    <div class="accordion-content">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-                                    </div>
+                                    <div class="accordion-content show">
+                                        <p><?php
+    echo get_post_meta($post->ID, 'faq-answer-1', true);
+  ?></p> </div>
                                 </li>
 
                                 <li class="accordion-item">
                                     <a class="accordion-title" href="javascript:void(0)">
                                         <i class='bx bx-chevron-down'></i>
-                                        Can I pay via an Invoice?
+                                        <?php
+    echo get_post_meta($post->ID, 'faq-question-1', true);
+  ?>
                                     </a>
                             
-                                    <div class="accordion-content">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-                                    </div>
+                                    <div class="accordion-content show">
+                                        <p><?php
+    echo get_post_meta($post->ID, 'faq-answer-1', true);
+  ?></p> </div>
                                 </li>
                             </ul>
                         </div>
@@ -395,9 +415,13 @@ get_header();
         <section class="clients-section pb-100">
             <div class="container">
                 <div class="section-title">
-                    <h2>What Clients Say About Us</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidiunt labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida.</p>
-                    <div class="bar"></div>
+                <h2><?php
+    echo get_post_meta($post->ID, 'Heading-4', true);
+  ?></h2>
+                    <p><?php
+    echo get_post_meta($post->ID, 'Description-4', true);
+  ?></p>
+  <div class="bar"></div>
                 </div>
 
                 <div class="clients-slider owl-carousel owl-theme">
@@ -406,11 +430,23 @@ get_header();
                             <i class="flaticon-left-quotes-sign"></i>
                         </div>
 
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley</p>
+                        <?php
+// Get the rich text content
+$rich_text_content = get_post_meta( get_the_ID(), 'rich_text2', true );
+
+// Output the rich text content
+echo wpautop( $rich_text_content );
+?>
 
                         <div class="clients-content">
-                            <h3>Moris Jacker</h3>
-                            <span>Web Developer</span>
+                        <?php
+// Get the rich text content
+$rich_text_content = get_post_meta( get_the_ID(), 'rich_text3', true );
+
+// Output the rich text content
+echo wpautop( $rich_text_content );
+?>
+
                         </div>
                     </div>
 
