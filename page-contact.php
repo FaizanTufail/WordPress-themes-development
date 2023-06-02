@@ -26,30 +26,39 @@ get_header();
 				<div class="row">
 					<div class="col-lg-4 col-md-6">
 						<div class="single-contact-box">
-							<i class="flaticon-pin"></i>
+                        <?php
+    echo get_post_meta($post->ID, 'Icon-1', true);
+  ?>
 							<div class="content-title">
-								<h3>Address</h3>
-								<p>32 st Kilda Road, Melbourne VIC, 3004 Australia</p>
+                            <?php
+    echo get_post_meta($post->ID, 'Icon-Title-1', true);
+  ?>
 							</div>
 						</div>
                     </div>
                     
 					<div class="col-lg-4 col-md-6">
 						<div class="single-contact-box">
-							<i class="flaticon-envelope"></i>
+                        <?php
+    echo get_post_meta($post->ID, 'Icon-2', true);
+  ?>
 							<div class="content-title">
-								<h3>Email</h3>
-								<a href="mailto:hello@fria.com">hello@fria.com</a>
+                            <?php
+    echo get_post_meta($post->ID, 'Icon-Title-2', true);
+  ?>
 							</div>
 						</div>
                     </div>
                     
 					<div class="col-lg-4 col-md-6 offset-md-3 offset-lg-0">
 						<div class="single-contact-box">
-							<i class="flaticon-phone-call"></i>
+                        <?php
+    echo get_post_meta($post->ID, 'Icon-3', true);
+  ?>
 							<div class="content-title">
-								<h3>Phone</h3>
-								<a href="tel:123456123">+123(456)123</a>
+                            <?php
+    echo get_post_meta($post->ID, 'Icon-Title-3', true);
+  ?>
 							</div>
 						</div>
 					</div>
@@ -64,44 +73,29 @@ get_header();
                 <div class="row align-items-center">
                     <div class="col-lg-6">
                         <div class="contact-text">
-                            <h3>Have Any Questions About Us?</h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipiscing elit sed eiusmod tempor incididunt ut labore </p>
+                            <h3><?php
+    echo get_post_meta($post->ID, 'Form-Heading', true);
+  ?></h3>
+                            <p><?php
+    echo get_post_meta($post->ID, 'Form-Description', true);
+  ?></p>
                         </div>
 
                         <div class="contact-form">
-                            <form id="contactForm">
-                                <div class="form-group">
-                                    <label>Name</label>
-                                    <input type="text" name="name" id="name" class="form-control" required data-error="Please enter your name" placeholder="Name">
-                                    <div class="help-block with-errors"></div>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label>Email</label>
-                                    <input type="email" name="email" id="email" class="form-control" required data-error="Please enter your email" placeholder="Your Email">
-                                    <div class="help-block with-errors"></div>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label>Subject</label>
-                                    <input type="text" name="msg_subject" id="msg_subject" class="form-control" required data-error="Please enter your subject" placeholder="Your Subject">
-                                    <div class="help-block with-errors"></div>
-                                </div>
-                               
-                                <div class="form-group">
-                                    <label>Message</label>
-                                    <textarea name="message" class="form-control" id="message" cols="30" rows="6" required data-error="Write your message" placeholder="Your Message"></textarea>
-                                    <div class="help-block with-errors"></div>
-                                </div>
+                        <?php
+while (have_posts()) {
+    the_post();
+    // Display the page/post content
+    
 
-                                <div class="send-btn">
-                                    <button type="submit" class="default-btn">
-                                        Send Message
-                                    </button>
-                                    <div id="msgSubmit" class="h3 text-center hidden"></div>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </form>
+    // Retrieve the value of the "form_shortcode" custom field
+    $form_shortcode = get_post_meta(get_the_ID(), 'form_shortcode', true);
+
+    // Display the form using the shortcode
+    echo do_shortcode($form_shortcode);
+}
+?>
+                        
                         </div>
                     </div>
 
@@ -113,6 +107,7 @@ get_header();
                 </div>
             </div>
         </section>
+        
         <!-- End Contact Area -->
 <?php
 get_footer();
